@@ -668,7 +668,7 @@ class AmmoPhysics extends Events {
     if (autoCenter) {
       // mesh
       if (object.isMesh && object.geometry) {
-        object.geometry.center()
+        object.geometry?.center()
       }
       // group
       else if (object.isGroup) {
@@ -910,16 +910,26 @@ class AmmoPhysics extends Events {
 
     const collisionShapes: Ammo.btCollisionShape[] = []
 
-    // if object is a THREE.Group, object does not have a mesh
-    if (shape !== 'unknown' || object.isMesh) {
-      const p = this.prepareThreeObjectForCollisionShape(object, config)
-      const cs = this.createCollisionShape(p.shape, p.params, p.object)
-      collisionShapes.push(cs)
+    if (shape !== 'unknown') {
+      if (object.isMesh) {
+        const p = this.prepareThreeObjectForCollisionShape(object, config)
+        const cs = this.createCollisionShape(p.shape, p.params, p.object)
+        collisionShapes.push(cs)
+      }
+      if (object.isGroup) {
+        object.traverse((child: any) => {
+          if (child.isMesh && child.geometry?.isBufferGeometry) {
+            const p = this.prepareThreeObjectForCollisionShape(object, config)
+            const cs = this.createCollisionShape(p.shape, p.params, p.object)
+            collisionShapes.push(cs)
+          }
+        })
+      }
     }
 
     // check if the object has children
     if (shape === 'unknown' && addChildren && object.children.length >= 1) {
-      object.children.forEach((child: any) => {
+      object.traverse((child: any) => {
         if (child.isMesh) {
           const p = this.prepareThreeObjectForCollisionShape(child)
           const cs = this.createCollisionShape(p.shape, p.params, p.object)
@@ -940,9 +950,14 @@ class AmmoPhysics extends Events {
 
     // FALLBACK: if we do not have any collisionShapes yet, add a simple box as a fallback
     if (collisionShapes.length === 0) {
-      const p = this.prepareThreeObjectForCollisionShape(object, config)
-      const cs = this.createCollisionShape(p.shape, p.params, p.object)
-      collisionShapes.push(cs)
+      if (object.isMesh) {
+        const p = this.prepareThreeObjectForCollisionShape(object, config)
+        const cs = this.createCollisionShape(p.shape, p.params, p.object)
+        collisionShapes.push(cs)
+      } else {
+        console.warn('Could not create physics shape!')
+        return
+      }
     }
 
     const collisionShape =
