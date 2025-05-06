@@ -23,9 +23,10 @@ export * as THREE from 'three'
 export * as Types from '@enable3d/common/dist/types.js'
 
 // misc
-export { JoyStick, JoyStickAxis, JoyStickButton } from '@enable3d/common/dist/misc/joystick.js'
+export { JoyStick } from '@enable3d/common/dist/misc/joystick.js'
 export { ThirdPersonControls, ThirdPersonControlsConfig } from '@enable3d/common/dist/misc/thirdPersonControls.js'
 export { FirstPersonControls, FirstPersonControlsConfig } from '@enable3d/common/dist/misc/firstPersonControls.js'
+export { FlyControls, FlyControlsConfig } from '@enable3d/common/dist/misc/flyControls.js'
 export { PointerLock } from '@enable3d/common/dist/misc/pointerLock.js'
 export { PointerDrag } from '@enable3d/common/dist/misc/pointerDrag.js'
 
