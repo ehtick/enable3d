@@ -9,11 +9,11 @@ jobs:
     steps:
       - uses: actions/stale@v4
         with:
-          stale-issue-message: 'This issue is stale because it has been open 300 days with no activity. Remove stale label or comment or this will be closed in 10 days.'
-          stale-pr-message: 'This PR is stale because it has been open 300 days with no activity. Remove stale label or comment or this will be closed in 10 days.'
-          close-issue-message: 'This issue was closed because it has been stalled for 10 days with no activity.'
-          close-pr-message: 'This PR was closed because it has been stalled for 10 days with no activity.'
-          days-before-issue-stale: 1000
-          days-before-pr-stale: 1000
-          days-before-issue-close: 40
-          days-before-pr-close: 40
+          stale-issue-message: 'This issue is stale because it has been open 1500 days with no activity. Remove stale label or comment or this will be closed in 50 days.'
+          stale-pr-message: 'This PR is stale because it has been open 1500 days with no activity. Remove stale label or comment or this will be closed in 50 days.'
+          close-issue-message: 'This issue was closed because it has been stalled for 50 days with no activity.'
+          close-pr-message: 'This PR was closed because it has been stalled for 50 days with no activity.'
+          days-before-issue-stale: 1500
+          days-before-pr-stale: 1500
+          days-before-issue-close: 50
+          days-before-pr-close: 50
